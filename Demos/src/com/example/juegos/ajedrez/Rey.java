@@ -8,5 +8,10 @@ public class Rey extends Pieza {
 	public Rey(Color color) {
 		super(color);
 	}
+
+	@Override
+	protected void ValidaMovimiento(String jugada) {
+		throw new NoClassDefFoundError();
+	}
 	
 }

@@ -8,4 +8,6 @@ public abstract class Pieza {
 	}
 	
 	public Color getColor() { return color; }
+	
+	protected abstract void ValidaMovimiento(String jugada);
 }
