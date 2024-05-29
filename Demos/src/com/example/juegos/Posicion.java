@@ -8,8 +8,8 @@ import java.util.Objects;
  *
  */
 public class Posicion {
-	private final int fila;
-	private final int columna;
+	private int fila;
+	private int columna;
 
 	/**
 	 * Constructor de la posición
@@ -65,4 +65,6 @@ public class Posicion {
 	public String toString() {
 		return "Posicion [fila=" + fila + ", columna=" + columna + "]";
 	}
+	
+	
 }

@@ -6,9 +6,8 @@ package com.example.juegos;
  * @author Javier
  */
 public class JuegoException extends Exception {
-	private static final long serialVersionUID = 1L;
 
-	public JuegoException(String message) {
+    public JuegoException(String message) {
         super(message);
     }
 
