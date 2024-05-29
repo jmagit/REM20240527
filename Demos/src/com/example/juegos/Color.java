@@ -1,3 +1,9 @@
 package com.example.juegos;
 
-public enum Color { BLANCA, NEGRA }
+/**
+ * Color de las piezas del juego
+ * @author Javier *
+ */
+public enum Color {
+	BLANCO, NEGRO
+}

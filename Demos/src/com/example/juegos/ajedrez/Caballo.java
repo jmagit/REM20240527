@@ -6,26 +6,23 @@ import com.example.juegos.Pieza;
 import com.example.juegos.Tablero;
 
 /**
- * El Rey como pieza del Ajedrez.
- * 
+ * El Caballo como pieza del Ajedrez.
  * @author Javier
  * @version 1.0
  */
-public class Rey extends Pieza {
+public class Caballo extends Pieza {
+
 	/**
-	 * Constructor único del Rey.
-	 * 
-	 * @param color Color del Rey.
+	 * Constructor único del Caballo.
+	 * @param color Color del Caballo.
 	 */
-	public Rey(Color color) {
+	public Caballo(Color color) {
 		super(color);
 	}
 
 	/**
-	 * Reemplazado. Indica porque el Rey no puede realizar el movimiento.
-	 * rey solo se desplaza una posición en cualquier dirección. NO CONTEMPLA EL
-	 * ENROQUE NI EL JAQUE.
-	 * 
+	 * Reemplazado. Indica porque el Caballo no puede realizar el movimiento.
+	 * Verifica que el caballo se desplaza dos posiciones en horizontal y una en vertical o una posición en horizontal y dos en vertical.
 	 * @param movimiento Movimiento a verificar.
 	 * @param tablero Tablero para verificar que no salta piezas.
 	 * @return Mensaje de porque la pieza no puede realizar el movimiento o cadena vacía si puede realizarlo.
@@ -36,8 +33,12 @@ public class Rey extends Pieza {
 			throw new IllegalArgumentException("El movimiento no puede ser nulo.");
 		if(tablero == null)
 			throw new IllegalArgumentException("El tablero no puede ser nulo.");
-		if (movimiento.saltoHorizontal() > 1 || movimiento.saltoVertical() > 1)
-			return "El rey no pude desplazarse más de una posición.";
-		return "";
+        int s1 = movimiento.saltoVertical();
+        int s2 = movimiento.saltoHorizontal();
+        if (!((s1 == 1 && s2 == 2) || (s1 == 2 && s2 == 1))) {
+            return "El caballo solo puede saltar 2 filas y 1 columna o 1 fila y 2 columnas.";
+        }
+        return "";
 	}
+
 }
