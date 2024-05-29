@@ -2,8 +2,14 @@ package com.example;
 
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Scanner;
 
+import com.example.demos.FacturaRepository;
+import com.example.demos.FacturaRepositoryImpl;
+import com.example.demos.FacturaRepositoryMock;
 import com.example.juegos.Color;
 import com.example.juegos.JuegoException;
 import com.example.juegos.Pieza;
@@ -17,12 +23,42 @@ import com.example.juegos.ajedrez.Torre;
 
 public class Demos {
 	
+	@FunctionalInterface
+	interface Comparador<T, R> {
+		int compara(T a, R b);
+	}
 	public static void main(String[] args) throws JuegoException {
 		var app = new Demos();
 		app.ajedrez();
-
+		String cad = null;
+		
+		if(cad.equals("") || "".equals(cad)) {
+			
+		}
+		var l = new ArrayList<String>();
+		ordena(l, new Comparador<String, String>() {
+			@Override
+			public int compara(String a, String b) {
+				return a.compareTo(b);
+			}
+		});
+		ordena(l, (a, b) -> a.compareTo(b));
+		ordena(l, (a, b) -> -a.toLowerCase().compareTo(b.toLowerCase()));
+		FacturaRepository dao = new FacturaRepositoryMock();
+		var kk = dao.getAll();
+		var f = dao.getById((Integer)1);
+		dao.modify(f);;
 	}
 
+	private static void ordena(List<String> lista, Comparador<String, String> comparador) {
+		String eleAct = "", eleAnt = "";
+		// ...
+		if(comparador.compara(eleAct, eleAnt) == 0) {
+			
+		} else if(comparador.compara(eleAct, eleAnt) > 0) {
+			
+		}
+	}
 	private static final Scanner teclado = new Scanner(System.in);
 	private static final PrintStream out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
 
@@ -30,6 +66,7 @@ public class Demos {
 		var juego = new AjedrezJuego();
 		juego.inicializar();
 		juego.addPromocionaListener(this::pidePieza);
+		juego.addPromocionaListener(ev -> System.out.println(ev.getColor().toString()));
 		do {
 			try {
 				pintaTablero(juego.getResultado());

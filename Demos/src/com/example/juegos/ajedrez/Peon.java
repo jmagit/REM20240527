@@ -141,6 +141,7 @@ public class Peon extends Pieza implements Promocionable {
 		} else
 			throw new JuegoException(getError(movimiento, tablero));
 	}
+	
 	private Set<PromocionEventListener> onPromocion = new HashSet<>();
 
 	@Override
