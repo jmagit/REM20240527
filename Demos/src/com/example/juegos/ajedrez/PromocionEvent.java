@@ -23,7 +23,6 @@ public class PromocionEvent extends EventObject {
 		super(source);
 		this.color = color;
 		cancel = false;
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
