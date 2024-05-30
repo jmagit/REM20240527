@@ -11,6 +11,10 @@ public class FacturaRepositoryImpl implements FacturaRepository {
 	public Factura getById(Integer id) {
 		return null;
 	}
+	@Override
+	public Factura getBy(Factura item) {
+		return getById(item.getNumeroFactura());
+	}
 	
 	@Override
 	public final void add(Factura item) {

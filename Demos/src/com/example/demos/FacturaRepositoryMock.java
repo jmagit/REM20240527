@@ -15,6 +15,10 @@ public class FacturaRepositoryMock implements FacturaRepository {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public Factura getBy(Factura item) {
+		return getById(item.getNumeroFactura());
+	}
 
 	@Override
 	public void add(Factura item) {
