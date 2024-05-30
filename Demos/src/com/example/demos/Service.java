@@ -7,16 +7,10 @@ import java.util.List;
  * @param <E>
  * @param <K>
  */
-public interface Repository<E, K> {
-/**
- * 
- * @return
- */
+public interface Service<E, K> {
 	List<E> getAll();
 
 	E getById(K id);
-
-	E getBy(E item);
 
 	void add(E item);
 
