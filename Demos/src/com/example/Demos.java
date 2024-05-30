@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
+import com.example.demos.Cliente;
 import com.example.demos.FacturaRepository;
 import com.example.demos.FacturaRepositoryImpl;
 import com.example.demos.FacturaRepositoryMock;
@@ -28,6 +29,22 @@ public class Demos {
 		int compara(T a, R b);
 	}
 	public static void main(String[] args) throws JuegoException {
+		
+		var cliente = Cliente.getBuilder().razonSocial("ACME S.L.").addCorreo("kk@acme.com").build();
+		System.out.println(cliente);
+		cliente = Cliente.getBuilder()
+				.nombre("Pepito", "Grillo")
+				.addTelefono("555 123 456")
+				.addTelefono("555 123 456")
+				.addDireccion("C/ Tripa Ballena 12")
+				.build();
+		System.out.println(cliente);
+		cliente = Cliente.getBuilder()
+				.nombre("Pepito", "Grillo")
+				.addTelefono("555 123 456")
+				.addTelefono("555 123 456")
+				.addDireccion("C/ Tripa Ballena 12")
+				.build();
 		var app = new Demos();
 		app.ajedrez();
 		String cad = null;
