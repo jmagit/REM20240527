@@ -35,6 +35,7 @@ public class Demos {
 		cliente = Cliente.getBuilder()
 				.nombre("Pepito", "Grillo")
 				.addTelefono("555 123 456")
+				.addTelefono("555 654 321")
 				.addTelefono("555 123 456")
 				.addDireccion("C/ Tripa Ballena 12")
 				.build();
