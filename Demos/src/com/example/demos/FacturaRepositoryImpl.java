@@ -1,5 +1,6 @@
 package com.example.demos;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class FacturaRepositoryImpl implements FacturaRepository {
@@ -9,6 +10,13 @@ public class FacturaRepositoryImpl implements FacturaRepository {
 	}
 	@Override
 	public Factura getById(Integer id) {
+		try {
+			var x =  JDBCSingleton.getInstance();
+			x.getConnection();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 	@Override
