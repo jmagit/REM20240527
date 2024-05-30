@@ -1,6 +1,7 @@
 package com.example.demos;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.Set;
 
@@ -67,24 +68,24 @@ public class Cliente {
 		this.nombre = razonSocial;
 	}
 
-	public Set<String> getTelefonos() {
-		return telefonos;
+	public Iterator<String> getTelefonos() {
+		return telefonos.iterator();
 	}
 
 	public void setTelefonos(Set<String> telefono) {
 		this.telefonos = telefono;
 	}
 
-	public Set<String> getCorreos() {
-		return correos;
+	public Iterator<String> getCorreos() {
+		return correos.iterator();
 	}
 
 	public void setCorreos(Set<String> correos) {
 		this.correos = correos;
 	}
 
-	public Set<String> getDirecciones() {
-		return direcciones;
+	public Iterator<String> getDirecciones() {
+		return direcciones.iterator();
 	}
 
 	public void setDirecciones(Set<String> direcciones) {
@@ -107,25 +108,28 @@ public class Cliente {
 		Cliente other = (Cliente) obj;
 		return id == other.id;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Cliente [id=" + id + ", tipo=" + tipo + ", nombre=" + nombre + ", apellidos=" + apellidos + "]";
+		var sb = new StringBuilder("Cliente [id=" + id + ", tipo=" + tipo + ", ");
+		if(tipo == Tipo.PERSONA_FISICA) {
+			sb.append("nombre=" + nombre + ", apellidos=" + apellidos);
+		} else {
+			sb.append("razonSocial=" + nombre);
+		}
+		sb.append(", telefonos=" + telefonos + ", correos=" + correos + ", direcciones=" + direcciones + "]");
+		return sb.toString();
 	}
-	
+
 	public static Builder getBuilder() {
 		return new Builder();
 	}
+	
 	public interface AddBuilder {
-
 		AddBuilder addTelefono(String telefono);
-
 		AddBuilder addCorreo(String correo);
-
 		AddBuilder addDireccion(String direccion);
-
 		Cliente build();
-
 	}
 	public static class Builder implements AddBuilder {
 		Cliente cliente = new Cliente();
@@ -146,6 +150,7 @@ public class Cliente {
 				throw new IllegalArgumentException("Falta la razon social");
 			cliente.tipo = Tipo.PERSONA_JURIDICA;
 			cliente.nombre = razonSocial;
+			cliente.apellidos = null;
 			return this;
 		}
 
