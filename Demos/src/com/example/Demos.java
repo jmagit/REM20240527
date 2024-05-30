@@ -41,9 +41,9 @@ public class Demos {
 		System.out.println(cliente);
 		cliente = Cliente.getBuilder()
 				.nombre("Pepito", "Grillo")
-				.addTelefono("555 123 456")
-				.addTelefono("555 123 456")
-				.addDireccion("C/ Tripa Ballena 12")
+//				.addTelefono("555 123 456")
+//				.addTelefono("555 123 456")
+//				.addDireccion("C/ Tripa Ballena 12")
 				.build();
 		var app = new Demos();
 		app.ajedrez();

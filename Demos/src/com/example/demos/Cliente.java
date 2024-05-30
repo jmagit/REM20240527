@@ -131,7 +131,7 @@ public class Cliente {
 		Cliente cliente = new Cliente();
 		boolean created = false;
 		
-		public Builder nombre(String nombre, String apellidos) {
+		public AddBuilder nombre(String nombre, String apellidos) {
 			if(nombre == null || nombre.trim().isEmpty()) 
 				throw new IllegalArgumentException("Falta el nombre");
 			if(apellidos == null || apellidos.trim().isEmpty()) 
@@ -141,7 +141,7 @@ public class Cliente {
 			cliente.apellidos = apellidos;
 			return this;
 		}
-		public Builder razonSocial(String razonSocial) {
+		public AddBuilder razonSocial(String razonSocial) {
 			if(razonSocial == null || razonSocial.trim().isEmpty()) 
 				throw new IllegalArgumentException("Falta la razon social");
 			cliente.tipo = Tipo.PERSONA_JURIDICA;
