@@ -13,6 +13,14 @@ import com.example.demos.FacturaRepository;
 import com.example.demos.FacturaRepositoryImpl;
 import com.example.demos.FacturaRepositoryMock;
 import com.example.demos.Instanciador;
+import com.example.demos.composicion.Area;
+import com.example.demos.composicion.Circulo;
+import com.example.demos.composicion.Contenedor;
+import com.example.demos.composicion.ContenedorImpl;
+import com.example.demos.composicion.Foto;
+import com.example.demos.composicion.Panel;
+import com.example.demos.composicion.Rectangulo;
+import com.example.demos.composicion.Triangulo;
 import com.example.juegos.Color;
 import com.example.juegos.JuegoException;
 import com.example.juegos.Pieza;
@@ -26,11 +34,35 @@ import com.example.juegos.ajedrez.Torre;
 
 public class Demos {
 
+	public static void main(String[] args) {
+		composicion();
+	}
+	public static void composicion() {
+		ContenedorImpl canvas = new ContenedorImpl();
+		canvas.addChild(new Circulo());
+		canvas.addChild(new Triangulo());
+		canvas.addChild(new Circulo());
+		Contenedor hijo = new Panel();
+		canvas.addChild(hijo);
+		hijo.addChild(new Rectangulo());
+		hijo.addChild(new Foto());
+		Contenedor nieto = new Area();
+		nieto.addChild(new Foto());
+		hijo.addChild(nieto);
+		nieto = new Panel();
+		canvas.addChild(new Circulo());
+		canvas.addChild(new Circulo());
+		hijo.addChild(nieto);
+		System.out.println(nieto.getContenedor());
+		canvas.addChild(hijo);
+		canvas.addChild(nieto);
+		canvas.pintate();
+		System.out.println(nieto.getContenedor());
+	}
 	@FunctionalInterface
 	interface Comparador<T, R> {
 		int compara(T a, R b);
 	}
-
 	public static void Reflexion(String[] args) throws JuegoException {
 		boolean test = false;
 		FacturaRepository dao;
@@ -73,7 +105,7 @@ public class Demos {
 		}
 	}
 
-	public static void main(String[] args) throws JuegoException {
+	public static void Builder(String[] args) throws JuegoException {
 		Reflexion(args);
 		var cliente = Cliente.getBuilder().razonSocial("ACME S.L.").addCorreo("kk@acme.com").build();
 		System.out.println(cliente);
