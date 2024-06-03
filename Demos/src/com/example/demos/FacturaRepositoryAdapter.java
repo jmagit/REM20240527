@@ -2,46 +2,42 @@ package com.example.demos;
 
 import java.util.List;
 
-public class FacturaRepositoryMock implements FacturaRepository {
+public class FacturaRepositoryAdapter extends ORMRepository implements FacturaRepository {
 
 	@Override
 	public List<Factura> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return get();
 	}
 
 	@Override
 	public Factura getById(Integer id) {
 		// TODO Auto-generated method stub
-		return null;
+		return get(id);
 	}
+
 	@Override
 	public Factura getBy(Factura item) {
-		return getById(item.getNumeroFactura());
+		return get(item.getNumeroFactura());
 	}
 
 	@Override
 	public void add(Factura item) {
-		// TODO Auto-generated method stub
-
+		insert(item);
 	}
 
 	@Override
 	public void modify(Factura item) {
-		// TODO Auto-generated method stub
-
+		update(item);
 	}
 
 	@Override
 	public void remove(Factura item) {
-		// TODO Auto-generated method stub
-
+		delete(item);
 	}
 
 	@Override
 	public void removeById(Integer id) {
-		System.out.println("Simulo que borro");
-
+		delete(id);
 	}
 
 }
