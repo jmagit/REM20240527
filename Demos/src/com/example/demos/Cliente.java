@@ -65,6 +65,8 @@ public class Cliente {
 	public void setRazonSocial(String razonSocial) {
 		if(tipo == Tipo.PERSONA_FISICA)
 			throw new IllegalAccessError("No es una persona juridica");
+		if(razonSocial == null)
+			throw new IllegalAccessError("Falta la razonSocial");
 		this.nombre = razonSocial;
 	}
 

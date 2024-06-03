@@ -41,7 +41,7 @@ public class FacturaRepositoryImpl implements FacturaRepository {
 	
 	@Override
 	public void removeById(Integer id) {
-		
+		System.out.println("Borro en la base de datos");
 	}
 	
 }

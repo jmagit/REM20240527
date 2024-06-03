@@ -1,6 +1,7 @@
 package com.example;
 
 import java.io.PrintStream;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -11,6 +12,7 @@ import com.example.demos.Cliente;
 import com.example.demos.FacturaRepository;
 import com.example.demos.FacturaRepositoryImpl;
 import com.example.demos.FacturaRepositoryMock;
+import com.example.demos.Instanciador;
 import com.example.juegos.Color;
 import com.example.juegos.JuegoException;
 import com.example.juegos.Pieza;
@@ -23,60 +25,119 @@ import com.example.juegos.ajedrez.PromocionEvent;
 import com.example.juegos.ajedrez.Torre;
 
 public class Demos {
-	
+
 	@FunctionalInterface
 	interface Comparador<T, R> {
 		int compara(T a, R b);
 	}
+
+	public static void Reflexion(String[] args) throws JuegoException {
+		boolean test = false;
+		FacturaRepository dao;
+		try {
+			if (test) {
+//				dao = (FacturaRepository) Instanciador.crear("com.example.demos.FacturaRepositoryMock");
+				dao = (FacturaRepository) Instanciador.crearTest(FacturaRepository.class);
+			} else {
+//				dao = (FacturaRepository) Instanciador.crear("com.example.demos.FacturaRepositoryImpl");				
+//				dao = (FacturaRepository) Instanciador.crear(FacturaRepositoryImpl.class.getName());				
+				dao = (FacturaRepository) Instanciador.crearProduccion(FacturaRepository.class);
+			}
+			dao.removeById(1);
+			var c = Class.forName("com.example.demos.FacturaRepositoryImpl");
+			var instancia = c.newInstance();
+			var m = instancia.getClass().getMethods()[6]; //. c.getMethod("removeById", Integer.TYPE);
+			System.out.println(m.getName());
+//			m.invoke(instancia, 3);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+//		} catch (InstantiationException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+//		} catch (NoSuchMethodException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	public static void main(String[] args) throws JuegoException {
-		
+		Reflexion(args);
 		var cliente = Cliente.getBuilder().razonSocial("ACME S.L.").addCorreo("kk@acme.com").build();
 		System.out.println(cliente);
-		cliente = Cliente.getBuilder()
-				.nombre("Pepito", "Grillo")
-				.addTelefono("555 123 456")
-				.addTelefono("555 654 321")
-				.addTelefono("555 123 456")
-				.addDireccion("C/ Tripa Ballena 12")
-				.build();
-		System.out.println(cliente);
-		cliente = Cliente.getBuilder()
-				.nombre("Pepito", "Grillo")
-//				.addTelefono("555 123 456")
-//				.addTelefono("555 123 456")
-//				.addDireccion("C/ Tripa Ballena 12")
-				.build();
-		var app = new Demos();
-		app.ajedrez();
-		String cad = null;
-		
-		if(cad.equals("") || "".equals(cad)) {
-			
+//		cliente.setRazonSocial(null);
+		try {
+			var fld = cliente.getClass().getDeclaredField("nombre");
+			fld.setAccessible(true);
+			fld.set(cliente, null);
+			System.out.println(cliente);
+		} catch (NoSuchFieldException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		var l = new ArrayList<String>();
-		ordena(l, new Comparador<String, String>() {
-			@Override
-			public int compara(String a, String b) {
-				return a.compareTo(b);
-			}
-		});
-		ordena(l, (a, b) -> a.compareTo(b));
-		ordena(l, (a, b) -> -a.toLowerCase().compareTo(b.toLowerCase()));
-		FacturaRepository dao = new FacturaRepositoryMock();
-		var kk = dao.getAll();
-		var f = dao.getById((Integer)1);
-		dao.modify(f);;
+		
+//		cliente = Cliente.getBuilder().nombre("Pepito", "Grillo").addTelefono("555 123 456").addTelefono("555 654 321")
+//				.addTelefono("555 123 456").addDireccion("C/ Tripa Ballena 12").build();
+//		System.out.println(cliente);
+//		cliente = Cliente.getBuilder().nombre("Pepito", "Grillo")
+////				.addTelefono("555 123 456")
+////				.addTelefono("555 123 456")
+////				.addDireccion("C/ Tripa Ballena 12")
+//				.build();
+//		var app = new Demos();
+//		app.ajedrez();
+//		String cad = null;
+//
+//		if (cad.equals("") || "".equals(cad)) {
+//
+//		}
+//		var l = new ArrayList<String>();
+//		ordena(l, new Comparador<String, String>() {
+//			@Override
+//			public int compara(String a, String b) {
+//				return a.compareTo(b);
+//			}
+//		});
+//		ordena(l, (a, b) -> a.compareTo(b));
+//		ordena(l, (a, b) -> -a.toLowerCase().compareTo(b.toLowerCase()));
+//		FacturaRepository dao = new FacturaRepositoryMock();
+//		var kk = dao.getAll();
+//		var f = dao.getById((Integer) 1);
+//		dao.modify(f);
+//		;
 	}
 
 	private static void ordena(List<String> lista, Comparador<String, String> comparador) {
 		String eleAct = "", eleAnt = "";
 		// ...
-		if(comparador.compara(eleAct, eleAnt) == 0) {
-			
-		} else if(comparador.compara(eleAct, eleAnt) > 0) {
-			
+		if (comparador.compara(eleAct, eleAnt) == 0) {
+
+		} else if (comparador.compara(eleAct, eleAnt) > 0) {
+
 		}
 	}
+
 	private static final Scanner teclado = new Scanner(System.in);
 	private static final PrintStream out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
 
@@ -114,23 +175,29 @@ public class Demos {
 		}
 		System.out.println();
 	}
-	
+
 	private void pidePieza(PromocionEvent e) {
 		System.out.print("\t1: Dama\n\t2: Alfil\n\t3: Torre\n\t4: Caballo\n\t5: Cancelar\n"
 				+ "Dame la opción para promocionar el peón " + (e.getColor() == Color.BLANCO ? "blanco: " : "negro:"));
 		switch (Integer.parseInt(teclado.nextLine())) {
 		case 1:
-			e.setPieza(new Dama(e.getColor())); break;
+			e.setPieza(new Dama(e.getColor()));
+			break;
 		case 2:
-			e.setPieza(new Alfil(e.getColor())); break;
+			e.setPieza(new Alfil(e.getColor()));
+			break;
 		case 3:
-			e.setPieza(new Torre(e.getColor())); break;
+			e.setPieza(new Torre(e.getColor()));
+			break;
 		case 4:
-			e.setPieza(new Caballo(e.getColor())); break;
+			e.setPieza(new Caballo(e.getColor()));
+			break;
 		case 5:
-			e.setCancel(true); break;
+			e.setCancel(true);
+			break;
 		default:
-			e.setPieza(null); break;
+			e.setPieza(null);
+			break;
 		}
 	}
 
