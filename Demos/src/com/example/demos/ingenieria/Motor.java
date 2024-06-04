@@ -8,14 +8,14 @@ public class Motor extends ComposicionImpl {
 	}
 
 	public Optional<Carter> getCarter() {
-		return getContenido().stream()
+		return getChilds().stream()
 				.filter(item -> item instanceof Carter)
 				.map(item -> (Carter)item)
 				.findFirst();
 	}
 
 	public Optional<Culata> getCulata() {
-		return getContenido().stream()
+		return getChilds().stream()
 				.filter(item -> item instanceof Culata)
 				.map(item -> (Culata)item)
 				.findFirst();

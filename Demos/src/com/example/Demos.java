@@ -54,6 +54,7 @@ public class Demos {
 		var coche = new Vehiculo();
 		coche.setMotor(motor);
 		System.out.println("Vehiculo: " + coche.getPeso());
+		System.out.println("Vehiculo Motor: " + coche.getMotor().getPeso());
 	}
 	
 	public static void composicion() {

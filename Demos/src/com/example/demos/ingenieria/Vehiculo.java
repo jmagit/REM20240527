@@ -14,12 +14,12 @@ public class Vehiculo {
 	public void setMotor(Motor motor) {
 		if(motor == null)
 			throw new IllegalArgumentException("Falta el motor");
-		if(partes.getContenido().stream().anyMatch(item -> item instanceof Motor)) 
+		if(partes.getChilds().stream().anyMatch(item -> item instanceof Motor)) 
 			throw new IllegalArgumentException("Ya tiene motor");
 		partes.addChild(motor);
 	}
 	public Motor getMotor() {
-		return partes.getContenido().stream()
+		return partes.getChilds().stream()
 				.filter(item -> item instanceof Motor)
 				.map(item -> (Motor)item)
 				.findFirst()
