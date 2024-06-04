@@ -21,6 +21,13 @@ import com.example.demos.composicion.Foto;
 import com.example.demos.composicion.Panel;
 import com.example.demos.composicion.Rectangulo;
 import com.example.demos.composicion.Triangulo;
+import com.example.demos.ingenieria.Arandela;
+import com.example.demos.ingenieria.Carter;
+import com.example.demos.ingenieria.Culata;
+import com.example.demos.ingenieria.Motor;
+import com.example.demos.ingenieria.TornilloEstrella;
+import com.example.demos.ingenieria.TornilloPlano;
+import com.example.demos.ingenieria.Vehiculo;
 import com.example.juegos.Color;
 import com.example.juegos.JuegoException;
 import com.example.juegos.Pieza;
@@ -35,8 +42,20 @@ import com.example.juegos.ajedrez.Torre;
 public class Demos {
 
 	public static void main(String[] args) {
-		composicion();
+		ingenieria();
 	}
+	public static void ingenieria() {
+		var motor = (Motor)Motor.getNew()
+				.addChild(Carter.getNew().addChild(new TornilloPlano(1)).addChild(new TornilloEstrella(1.5)))
+				.addChild(Culata.getNew().addChild(new Arandela()).addChild(new Arandela()));
+		System.out.println("Carter: " + motor.getCarter().get().getPeso());
+		System.out.println("Culata: " + motor.getCulata().get().getPeso());
+		System.out.println("Motor: " + motor.getPeso());
+		var coche = new Vehiculo();
+		coche.setMotor(motor);
+		System.out.println("Vehiculo: " + coche.getPeso());
+	}
+	
 	public static void composicion() {
 		ContenedorImpl canvas = new ContenedorImpl();
 		canvas.addChild(new Circulo());
