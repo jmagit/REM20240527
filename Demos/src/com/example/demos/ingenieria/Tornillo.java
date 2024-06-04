@@ -15,6 +15,6 @@ public abstract class Tornillo extends PiezaImp {
 	}
 	
 	public double getLongitud() {
-		return peso;
+		return 10;
 	}
 }
