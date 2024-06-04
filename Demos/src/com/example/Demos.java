@@ -16,7 +16,11 @@ import com.example.demos.Instanciador;
 import com.example.demos.composicion.Area;
 import com.example.demos.composicion.Circulo;
 import com.example.demos.composicion.Contenedor;
+import com.example.demos.composicion.ContenedorDecorator;
 import com.example.demos.composicion.ContenedorImpl;
+import com.example.demos.composicion.ContenedorLoggerImpl;
+import com.example.demos.composicion.ContenedorPersistente;
+import com.example.demos.composicion.ContenedorPersistenteImpl;
 import com.example.demos.composicion.Foto;
 import com.example.demos.composicion.Panel;
 import com.example.demos.composicion.Rectangulo;
@@ -42,7 +46,7 @@ import com.example.juegos.ajedrez.Torre;
 public class Demos {
 
 	public static void main(String[] args) {
-		ingenieria();
+		composicion();
 	}
 	public static void ingenieria() {
 		var motor = (Motor)Motor.getNew()
@@ -58,7 +62,9 @@ public class Demos {
 	}
 	
 	public static void composicion() {
-		ContenedorImpl canvas = new ContenedorImpl();
+		Contenedor canvas = new ContenedorImpl();
+		canvas = new ContenedorPersistenteImpl(new ContenedorLoggerImpl(canvas));
+//		var canvas = new ContenedorLoggerImpl(original);
 		canvas.addChild(new Circulo());
 		canvas.addChild(new Triangulo());
 		canvas.addChild(new Circulo());
@@ -78,6 +84,8 @@ public class Demos {
 		canvas.addChild(nieto);
 		canvas.pintate();
 		System.out.println(nieto.getContenedor());
+		if(canvas instanceof ContenedorPersistente)
+			((ContenedorPersistente)canvas).cargar();
 	}
 	@FunctionalInterface
 	interface Comparador<T, R> {
