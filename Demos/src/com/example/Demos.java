@@ -9,9 +9,14 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.example.demos.Cliente;
+import com.example.demos.Factura;
+import com.example.demos.FacturaProxy;
 import com.example.demos.FacturaRepository;
 import com.example.demos.FacturaRepositoryImpl;
 import com.example.demos.FacturaRepositoryMock;
+import com.example.demos.FacturaService;
+import com.example.demos.FacturaServiceImpl;
+import com.example.demos.FacturaServiceProxy;
 import com.example.demos.Instanciador;
 import com.example.demos.composicion.Area;
 import com.example.demos.composicion.Circulo;
@@ -46,7 +51,32 @@ import com.example.juegos.ajedrez.Torre;
 public class Demos {
 
 	public static void main(String[] args) {
-		composicion();
+		proxies();
+	}
+	public static void proxies() {
+		var cliente = Cliente.getBuilder().razonSocial("ACME S.L.").addCorreo("kk@acme.com").build();
+		Factura factura = new FacturaProxy(1, cliente);
+//		factura.loadLineas();
+//		System.out.println(factura.getTotal());
+////		factura.loadLineas();
+//		System.out.println(factura.getTotal());
+////		var lista = List.of("ddd", "333");
+////		factura.setLineas(lista);
+////		lista.clear();
+		System.out.println("version local");
+		FacturaService srv = new FacturaServiceImpl();
+		factura = srv.getById(1);
+		System.out.println(factura.getTotal());
+		factura.loadLineas();
+		System.out.println(factura.getTotal());
+		System.out.println("version remota");
+		srv = new FacturaServiceProxy();
+		factura = srv.getById(1);
+		System.out.println(factura.getTotal());
+		factura.loadLineas();
+		System.out.println(factura.getTotal());
+		System.out.println("version remota");
+		
 	}
 	public static void ingenieria() {
 		var motor = (Motor)Motor.getNew()

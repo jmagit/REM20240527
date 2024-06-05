@@ -50,9 +50,12 @@ public class AjedrezJuego implements Juego<Tablero>, Promocionable {
 		tablero.setPieza(1, 3, new Alfil(Color.BLANCO));
 		tablero.setPieza(1, 4, new Dama(Color.BLANCO));
 		tablero.setPieza(1, 5, new Rey(Color.BLANCO));
-		tablero.setPieza(1, 6, new Alfil(Color.BLANCO));
-		tablero.setPieza(1, 7, new Caballo(Color.BLANCO));
-		tablero.setPieza(1, 8, new Torre(Color.BLANCO));
+//		tablero.setPieza(1, 6, new Alfil(Color.BLANCO));
+//		tablero.setPieza(1, 7, new Caballo(Color.BLANCO));
+//		tablero.setPieza(1, 8, new Torre(Color.BLANCO));
+		tablero.setPieza(1, 6, tablero.getPieza(1, 3)); // Alfil
+		tablero.setPieza(1, 7, tablero.getPieza(1, 2));	// Caballo
+		tablero.setPieza(1, 8, tablero.getPieza(1, 1)); // Torre
 
 		tablero.setPieza(8, 1, new Torre(Color.NEGRO));
 		tablero.setPieza(8, 2, new Caballo(Color.NEGRO));
@@ -63,11 +66,18 @@ public class AjedrezJuego implements Juego<Tablero>, Promocionable {
 		tablero.setPieza(8, 7, new Caballo(Color.NEGRO));
 		tablero.setPieza(8, 8, new Torre(Color.NEGRO));
 
+//		var peonBlanco = new Peon(Color.BLANCO);
+//		var peonNegro = new Peon(Color.NEGRO);
+//		
+//		for (byte c = 1; c <= 8; c++) {
+//			tablero.setPieza(2, c, peonBlanco);
+//			tablero.setPieza(7, c, peonNegro);
+//		}
+
 		for (byte c = 1; c <= 8; c++) {
 			tablero.setPieza(2, c, new Peon(Color.BLANCO));
 			tablero.setPieza(7, c, new Peon(Color.NEGRO));
 		}
-
 		tablero.setPieza(7, 1, new Peon(Color.BLANCO));
 		tablero.setPieza(2, 1, new Peon(Color.NEGRO));
 

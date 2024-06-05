@@ -9,6 +9,8 @@ public class Factura {
 	}
 	
 	private int numeroFactura;
+	private Cliente cliente;
+	
 	private List<Linea> lineas = new ArrayList<>();
 	
 	public class Linea {
@@ -40,17 +42,33 @@ public class Factura {
 		public void setConcepto(String concepto) {
 			this.concepto = concepto;
 		}
+		public double getTotal() {
+			return cantida * precio;
+		}
 		public int getNumeroFactura() {
 			return numeroFactura;
+		}
+		
+		@Override
+		protected Linea clone() {
+			return new Linea(cantida, precio, concepto);
 		}
 
 	}
 	
+	
+	public Factura(int numeroFactura, Cliente cliente) {
+		setNumeroFactura(numeroFactura); 
+		this.cliente = cliente;
+	}
+
 	public int getNumeroFactura() {
 		return numeroFactura;
 	}
 
 	public void setNumeroFactura(int numeroFactura) {
+		if(numeroFactura <= 0)
+			throw new IllegalArgumentException("El numero fe factura debe ser mayor que 0.");
 		this.numeroFactura = numeroFactura;
 	}
 	
@@ -58,5 +76,20 @@ public class Factura {
 		lineas.add(new Linea(cantida, precio, concepto));
 	}
 
+	public void loadLineas() {
+		setLineas(List.of(new Linea(1, 10, "uno"), new Linea(2, 5, "dos")));
+	}
+
+	public void setLineas(List<Linea> lineas) {
+		this.lineas = lineas.stream().map(item -> item.clone()).toList();
+	}
+	
+	public List<Linea> getLineas() {
+		return lineas.stream().map(item -> item.clone()).toList();
+	}
+	public double getTotal() {
+		return getLineas().stream().mapToDouble(item -> item.getTotal()).sum();
+	}
+	
 	
 }
