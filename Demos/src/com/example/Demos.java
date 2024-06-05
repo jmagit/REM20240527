@@ -75,7 +75,6 @@ public class Demos {
 		System.out.println(factura.getTotal());
 		factura.loadLineas();
 		System.out.println(factura.getTotal());
-		System.out.println("version remota");
 		
 	}
 	public static void ingenieria() {
