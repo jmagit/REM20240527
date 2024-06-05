@@ -5,22 +5,18 @@ import java.util.List;
 
 public class FacturaRepositoryProxy implements FacturaRepository {
 	List<Factura> cache;
+
 	@Override
 	public List<Factura> getAll() {
-		if(cache != null) return cache;
 		System.err.println("Consultando al remoto");
-		return List.of(new FacturaProxy(1, Cliente.getBuilder().razonSocial("ACME S.L.").addCorreo("kk@acme.com").build()));
+		if (cache == null)
+			cache = List.of(new FacturaProxy(1,
+					Cliente.getBuilder().razonSocial("ACME S.L.").addCorreo("kk@acme.com").build()));
+		return cache;
 	}
 
 	@Override
 	public Factura getById(Integer id) {
-//		try {
-//			var x = JDBCSingleton.getInstance();
-//			x.getConnection();
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 		return getAll().get(0);
 	}
 
