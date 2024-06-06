@@ -24,6 +24,7 @@ public class DemoIoCApplication implements CommandLineRunner {
 
 	@Autowired(required = false)
 	FacturaService srv;
+	
 	@Autowired
 //	@Qualifier("En")
 	SaludaService saludaEn;
@@ -32,7 +33,7 @@ public class DemoIoCApplication implements CommandLineRunner {
 	String nombre;
 	@Autowired
 	private Rango rango;
-	
+
 	@Override
 	public void run(String... args) throws Exception {
 		System.err.println("Aplicación arrancada");
@@ -41,7 +42,7 @@ public class DemoIoCApplication implements CommandLineRunner {
 		saludaEn.saluda();
 		if (srv != null) {
 //			srv.getAll().forEach(System.out::println);
-			((FacturaServiceImpl)srv).saluda(nombre);
+			((FacturaServiceImpl) srv).saluda(nombre);
 		} else {
 			System.out.println("No tengo servicio");
 		}

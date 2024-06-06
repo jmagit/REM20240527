@@ -14,7 +14,8 @@ public class FacturaRepositoryMock implements FacturaRepository {
 	@Override
 	public List<Factura> getAll() {
 		System.err.println("Simulacion de acceso a base de datos");
-		return List.of(new Factura(2, Cliente.getBuilder().razonSocial("Simulada S.L.").addCorreo("kk@local.es").build()));
+		return List
+				.of(new Factura(2, Cliente.getBuilder().razonSocial("Simulada S.L.").addCorreo("kk@local.es").build()));
 	}
 
 	@Override
@@ -22,6 +23,7 @@ public class FacturaRepositoryMock implements FacturaRepository {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@Override
 	public Factura getBy(Factura item) {
 		return getById(item.getNumeroFactura());

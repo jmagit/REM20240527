@@ -11,8 +11,11 @@ import com.example.domains.services.SaludaServiceEsImpl;
 @Configuration
 public class MyConfig {
 
-	@Bean() String autor() { return "Yo mismo"; }
-	
+	@Bean()
+	String autor() {
+		return "Yo mismo";
+	}
+
 //	@Bean()
 //	SaludaService saludaEs() {
 //		return new SaludaServiceEsImpl();
@@ -22,10 +25,12 @@ public class MyConfig {
 //	SaludaService saludaEn() {
 //		return new SaludaServiceEnImpl();
 //	}
+
 	@Bean()
 	SaludaService saludaEs(@Qualifier("Es") SaludaService saluda) {
 		return saluda;
 	}
+
 	@Bean()
 	SaludaService saludaEn(@Qualifier("En") SaludaService saluda) {
 		return saluda;
