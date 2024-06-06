@@ -15,7 +15,7 @@ import jakarta.annotation.PostConstruct;
 public class FacturaServiceImpl extends ServiceImpl<Factura, Integer> implements FacturaService {
 
 	private SaludaService dao;
-	
+
 	public FacturaServiceImpl(FacturaRepository repository, SaludaService saludaEs, String autor) {
 		super(repository);
 		dao = saludaEs;
@@ -29,10 +29,10 @@ public class FacturaServiceImpl extends ServiceImpl<Factura, Integer> implements
 	public void saluda() {
 		dao.saluda();
 	}
+
 	public void saluda(String nombre) {
 		dao.setNombre(nombre);
 		dao.saluda();
 	}
-
 
 }
